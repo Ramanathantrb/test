@@ -1,0 +1,15 @@
+import pandas as pd
+
+# Read the first Excel file
+data = pd.read_excel('data.xlsx')
+# Read the second Excel file (master file)
+master = pd.read_excel('master.xlsx')
+
+# Create a dictionary from the master file
+master_dict = dict(zip(master['Word'], master['Category']))
+
+# Create a new column in the data DataFrame with the corresponding categories
+data['Category'] = data['Word'].map(master_dict)
+
+# Write the output to a new Excel file
+data.to_excel('output.xlsx', index=False)
